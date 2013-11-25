@@ -12,7 +12,9 @@ topic = 'data structures'
 topic = normalize(topic)
 
 doc = Nokogiri::HTML.parse(open("#{base_url}/#{topic}"))
-doc.css('.question_link').each do |question|
-  puts question.children.last.children.last
-end
+questions = doc.css('.question_link').map { |q| q.children.last.children.last.text }
+links = doc.css('.question_link').map { |link| link['href'] }
+
+p questions, links
+
 binding.pry
